@@ -17,7 +17,7 @@ export class ListController extends ControllerAbstract {
     this.actionsSubscription = this.subscribe((action) => {
       switch (action.type) {
         case 'btnClick': {
-          console.log(action);
+          this.remove(action.payload);
         }
       }
     });
@@ -27,5 +27,11 @@ export class ListController extends ControllerAbstract {
     this._restService
       .getAll()
       .then((entityList) => this._listDomManipulator.renderList(entityList));
+  }
+
+  remove(entity) {
+    this._restService
+      .remove(entity.id)
+      .then(() => this._listDomManipulator.removeElement(entity.id));
   }
 }

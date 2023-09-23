@@ -9,12 +9,14 @@ export class ButtonDomManipulator extends DomManipulatorAbstract {
     super(['actionsFabricService']);
   }
 
-  createButton() {
+  createButton(entity) {
     const button = this.createDomElement('button');
 
-    button.innerText = 'Click me';
+    button.innerText = 'delete';
     button.addEventListener('click', () => {
-      this.broadcast(this._actionsFabricService.createAction('btnClick'));
+      this.broadcast(
+        this._actionsFabricService.createAction('btnClick', entity)
+      );
     });
 
     return button;

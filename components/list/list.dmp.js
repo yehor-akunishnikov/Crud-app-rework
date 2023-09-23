@@ -15,7 +15,7 @@ export class ListDomManipulator extends DomManipulatorAbstract {
     title.innerText = `Name: ${entity.name}`;
 
     listItem.appendChild(title);
-    listItem.appendChild(this.buttonDomManipulator.createButton());
+    listItem.appendChild(this.buttonDomManipulator.createButton(entity));
 
     return listItem;
   }
