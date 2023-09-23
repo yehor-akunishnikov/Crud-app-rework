@@ -1,5 +1,6 @@
 import { ControllerAbstract } from '../../abstract-classes/controller-abstract.js';
-import { DomManipulator } from './list-component.dmp.js';
+import { ListDomManipulator } from './list.dmp.js';
+import entityUtilsService from '../../util/entitiy-utils.service.js';
 
 /*
   Main entry point to your feature
@@ -8,30 +9,13 @@ import { DomManipulator } from './list-component.dmp.js';
 export class ListController extends ControllerAbstract {
   constructor(restService, generalUtilsService) {
     super(
-      // There's a lot going on under the hood, but skip that part for now
+      entityUtilsService,
       [
         {
-          id: 'create-form',
-          events: [{ name: 'submit', method: 'create' }],
+          token: 'ListDomManipulator',
+          instance: new ListDomManipulator({ attachTo: 'app', tag: 'ul' })
         },
-        {
-          id: 'load-one-form',
-          events: [{ name: 'submit', method: 'loadOne' }],
-        },
-        {
-          id: 'update-form',
-          events: [{ name: 'submit', method: 'update' }],
-        },
-        {
-          id: 'remove-form',
-          events: [{ name: 'submit', method: 'remove' }],
-        },
-        
-      ],
-
-      // DomManipulator is already available via "this",
-      // Please check "loadAll" method to see the example of its usage
-      new DomManipulator({ attachTo: 'app', tag: 'ul' })
+      ]
     );
 
     this.restService = restService;
@@ -61,9 +45,9 @@ export class ListController extends ControllerAbstract {
 
     const entity = this.generalUtilsService.getFormData(event.target);
 
-    this.restService.getOne(entity.id).then(loadedEntity => this.domManipulator.addElement(loadedEntity));
-
-    // Load item from server and render
+    this.restService
+      .getOne(entity.id)
+      .then((loadedEntity) => this.domManipulator.addElement(loadedEntity));
   }
 
   update(event) {
@@ -86,7 +70,5 @@ export class ListController extends ControllerAbstract {
     this.restService
       .remove(entity.id)
       .then(() => this.domManipulator.removeElement(entity.id));
-
-    // Remove item both on server and in DOM
   }
 }

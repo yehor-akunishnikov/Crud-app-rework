@@ -4,7 +4,7 @@ import { DomManipulatorAbstract } from '../../abstract-classes/dom-manipulator-a
   Class responsible for DOM manipulations only
   For now you don't need to edit it - just use it
 */
-export class DomManipulator extends DomManipulatorAbstract {
+export class ListDomManipulator extends DomManipulatorAbstract {
   constructor(config) {
     super(config);
   }
