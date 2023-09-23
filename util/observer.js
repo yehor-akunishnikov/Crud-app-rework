@@ -1,25 +1,26 @@
-/*
-  Basic implementation of Observer pattern
-  It can be used for comunications between Controller and DomManipulator
-  For now just skip it
-*/
-export class Observer {
-  subscriptions = [];
+import InjectionConsumer from '../abstract-classes/injection-consumer-abstract.js';
 
-  subscribe(subscription) {
-    this.subscriptions.push(subscription);
+export class Observer extends InjectionConsumer {
+  subscriptions = {};
+
+  constructor() {
+    super(['entityUtilsService']);
   }
 
-  unsubscribe(subscription) {
-    const existingSubIndex = this.subscriptions.indexOf(subscription);
+  subscribe(subscription) {
+    const subId = _entityUtilsService.getRandomId();
 
-    if (existingSubIndex > -1) {
-      this.subscriptions.splice(existingSubIndex, 1);
-    }
+    this.subscriptions[subId] = subscription;
+
+    return subId;
+  }
+
+  unsubscribe(subId) {
+    delete this.subscriptions[subId];
   }
 
   broadcast(...params) {
-    this.subscriptions.forEach((subscription) => {
+    Object.values(this.subscriptions).forEach((subscription) => {
       subscription.call(this, ...params);
     });
   }

@@ -1,44 +1,28 @@
 import { Observer } from '../util/observer.js';
 
-/*
-  Abstract class which provides basic features for the Controller
-  For now just skip it
-*/
-export class ControllerAbstract {
-  _subscriptions = {};
-  _manipulators = {};
+import InjectionConsumer from './injection-consumer-abstract';
 
-  constructor(entityUtilsService, domManipulators = []) {
-    // Here we connect Controller with DomManipulator
+export class ControllerAbstract extends InjectionConsumer {
+  _subscriptions = {};
+
+  constructor(dependencyTokens, domManipulators = []) {
+    super(dependencyTokens);
 
     this._actionObserver = Object.freeze(new Observer());
 
     domManipulators.forEach((manipulatorMeta) => {
       manipulatorMeta.instance.attachObserver(this._actionObserver);
-      this.manipulators[manipulatorMeta.token] = manipulatorMeta;
+      this[`_${manipulatorMeta.token}`] = Object.freeze(
+        manipulatorMeta.instance
+      );
     });
-
-    if (entityUtilsService) {
-      this.entityUtilsService = entityUtilsService;
-    } else {
-      throw new Error('Missing dependency: entityUtilsService');
-    }
   }
 
   subscribe(callBack) {
-    const subId = (Math.random() + 1).toString(36).substring(7);
-
-    this._subscriptions[subId] = callBack;
-    this._actionObserver.subscribe(callBack);
-
-    return subId;
+    return this._actionObserver.subscribe(callBack);
   }
 
   unsubscribe(subId) {
-    const subscription = this._subscriptions[subId];
-
-    this._actionObserver.unsubscribe(subscription);
-
-    delete this._subscriptions[subId];
+    this._actionObserver.unsubscribe(subId);
   }
 }

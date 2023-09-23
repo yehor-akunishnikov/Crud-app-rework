@@ -1,15 +1,10 @@
 import { DomManipulatorAbstract } from '../../abstract-classes/dom-manipulator-abstract.js';
 
-/*
-  Class responsible for DOM manipulations only
-  For now you don't need to edit it - just use it
-*/
 export class ListDomManipulator extends DomManipulatorAbstract {
   constructor(config) {
     super(config);
   }
 
-  // Util method, which creates li element
   createListItem(entity) {
     const listItem = this.createDomElement('li', entity);
 
@@ -18,19 +13,25 @@ export class ListDomManipulator extends DomManipulatorAbstract {
     return listItem;
   }
 
-  // Method, which takes list of entities
-  // and renders list of li elements using this data
+  addElement(entity) {
+    this.root.append(this.createListItem(entity));
+  }
+
   renderList(entityList) {
     this.clearRoot();
     entityList.forEach((entity) => this.addElement(entity));
   }
 
-  // Method, which renders one li element
-  addElement(entity) {
-    this.root.append(this.createListItem(entity));
+  findElementById(id) {
+    const selector = `[data-identifier="${id}"]`;
+
+    return this.root.querySelector(selector);
   }
 
-  // Method, which updates one li element's contents by id
+  removeElement(id) {
+    this.root.removeChild(this.findElementById(id));
+  }
+
   updateElement(payload) {
     console.log(payload);
     const elementToUpdate = this.findElementById(payload.id);
@@ -38,8 +39,9 @@ export class ListDomManipulator extends DomManipulatorAbstract {
     elementToUpdate.innerText = `Name: ${payload.name}`;
   }
 
-  // Method, which removes li element
-  removeElement(id) {
-    super.removeElement(id);
+  clearRoot() {
+    this.root.replaceChildren();
   }
 }
+
+export const listDmpToken = 'listDomManipulator';

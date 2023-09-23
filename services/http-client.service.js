@@ -1,4 +1,4 @@
-class HttpClient {
+export default class HttpClientService {
   getRequestPayload({ body, method, headers }) {
     const payload = {
       headers: {
@@ -43,5 +43,3 @@ class HttpClient {
     return fetch(url, requestPayload).then((data) => data.json());
   }
 }
-
-export default new HttpClient();
