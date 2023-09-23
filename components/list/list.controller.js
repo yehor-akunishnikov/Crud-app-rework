@@ -3,12 +3,7 @@ import { ListDomManipulator } from './list.dmp.js';
 
 export class ListController extends ControllerAbstract {
   constructor() {
-    super([
-      'actionsFabricService',
-      'restService',
-      'formUtilsService',
-      'actionObserver',
-    ]);
+    super(['restService', 'formUtilsService']);
 
     this._listDomManipulator = new ListDomManipulator({
       autoInitParams: { attachTo: 'app', tag: 'ul' },
