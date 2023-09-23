@@ -15,7 +15,7 @@ export class ButtonDomManipulator extends DomManipulatorAbstract {
     button.innerText = 'delete';
     button.addEventListener('click', () => {
       this.broadcast(
-        this._actionsFabricService.createAction('btnClick', entity)
+        this._actionsFabricService.createAction('deleteElement', entity)
       );
     });
 

@@ -16,7 +16,7 @@ export class ListController extends ControllerAbstract {
   listenForActions() {
     this.actionsSubscription = this.subscribe((action) => {
       switch (action.type) {
-        case 'btnClick': {
+        case 'deleteElement': {
           this.remove(action.payload);
         }
       }
