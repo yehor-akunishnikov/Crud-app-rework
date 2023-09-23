@@ -1,9 +1,10 @@
-import injectionContainer from '../util/injection-container.js';
-
 export class InjectionConsumer {
   constructor(dependencyTokens) {
+    console.log(dependencyTokens);
+
     dependencyTokens.forEach((dependencyToken) => {
-      this[`_${dependencyToken}`] = injectionContainer[dependencyToken];
+      this[`_${dependencyToken}`] =
+        injectionContainer.getInjectable(dependencyToken);
     });
   }
 }

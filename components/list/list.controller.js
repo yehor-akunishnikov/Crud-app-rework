@@ -24,7 +24,7 @@ export class ListController extends ControllerAbstract {
   }
 
   loadAll() {
-    this.restService
+    this._restService
       .getAll()
       .then((entityList) => this._listDomManipulator.renderList(entityList));
   }

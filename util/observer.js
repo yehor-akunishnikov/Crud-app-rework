@@ -1,4 +1,4 @@
-import InjectionConsumer from '../abstract-classes/injection-consumer-abstract.js';
+import { InjectionConsumer } from '../abstract-classes/injection-consumer-abstract.js';
 
 export class Observer extends InjectionConsumer {
   subscriptions = {};

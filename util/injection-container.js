@@ -20,4 +20,4 @@ class InjectionContainer {
   }
 }
 
-export default new InjectionContainer();
+window.injectionContainer = new InjectionContainer();
