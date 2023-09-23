@@ -1,8 +1,6 @@
 import { InjectionConsumer } from './injection-consumer-abstract.js';
 
 export class ControllerAbstract extends InjectionConsumer {
-  _subscriptions = {};
-
   constructor(dependencyTokens) {
     super([...dependencyTokens, 'actionObserver']);
   }

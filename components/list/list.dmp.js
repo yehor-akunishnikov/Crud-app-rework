@@ -39,11 +39,10 @@ export class ListDomManipulator extends DomManipulatorAbstract {
     this.root.removeChild(this.findElementById(id));
   }
 
-  updateElement(payload) {
-    console.log(payload);
-    const elementToUpdate = this.findElementById(payload.id);
+  updateElement(entity) {
+    const elementToUpdate = this.findElementById(entity.id);
 
-    elementToUpdate.innerText = `Name: ${payload.name}`;
+    elementToUpdate.innerText = `Name: ${entity.name}`;
   }
 
   clearRoot() {
