@@ -1,12 +1,14 @@
-export class DomManipulatorAbstract {
-  _actionObserver = null;
+import { InjectionConsumer } from './injection-consumer-abstract.js';
 
-  constructor({ autoInitParams } = {}) {
-    if (autoInitParams.root) {
+export class DomManipulatorAbstract extends InjectionConsumer {
+  constructor(dependencyTokens, { autoInitParams } = {}) {
+    super([...dependencyTokens, 'actionObserver']);
+
+    if (autoInitParams?.root) {
       this.root = autoInitParams.root;
     }
 
-    if (autoInitParams.tag) {
+    if (autoInitParams?.tag) {
       this.root = document.createElement(autoInitParams.tag);
 
       if (autoInitParams.tag === 'ul') {
@@ -21,26 +23,22 @@ export class DomManipulatorAbstract {
     }
   }
 
-  attachObserver(actionObserver) {
-    this._actionObserver = actionObserver;
-  }
-
   broadcast(...params) {
-    this._actionObserver.broadcast(...params);
+    this._actionObserver?.broadcast(...params);
   }
 
   subscribe(callBack) {
-    return this._actionObserver.subscribe(callBack);
+    return this._actionObserver?.subscribe(callBack);
   }
 
   unsubscribe(subId) {
-    this._actionObserver.unsubscribe(subId);
+    this._actionObserver?.unsubscribe(subId);
   }
 
   createDomElement(tagName, payload) {
     const domElement = document.createElement(tagName);
 
-    if (payload.id) {
+    if (payload?.id) {
       domElement.setAttribute('data-identifier', payload.id);
     }
 

@@ -1,14 +1,21 @@
 import { DomManipulatorAbstract } from '../../abstract-classes/dom-manipulator-abstract.js';
+import { ButtonDomManipulator } from './button.dmp.js';
 
 export class ListDomManipulator extends DomManipulatorAbstract {
   constructor(config) {
-    super(config);
+    super([], config);
+
+    this.buttonDomManipulator = new ButtonDomManipulator();
   }
 
   createListItem(entity) {
     const listItem = this.createDomElement('li', entity);
+    const title = this.createDomElement('span');
 
-    listItem.innerText = `Name: ${entity.name}`;
+    title.innerText = `Name: ${entity.name}`;
+
+    listItem.appendChild(title);
+    listItem.appendChild(this.buttonDomManipulator.createButton());
 
     return listItem;
   }
@@ -43,5 +50,3 @@ export class ListDomManipulator extends DomManipulatorAbstract {
     this.root.replaceChildren();
   }
 }
-
-export const listDmpToken = 'listDomManipulator';

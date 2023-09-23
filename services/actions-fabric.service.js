@@ -10,7 +10,7 @@ export default class ActionsFabricService {
     return new Action(type, payload);
   }
 
-  createListItemClickAction(payload) {
+  createListItemClickAction(payload = null) {
     return this.createAction('listItemClick', payload);
   }
 }

@@ -1,14 +1,10 @@
-import { InjectionConsumer } from '../abstract-classes/injection-consumer-abstract.js';
-
-export class Observer extends InjectionConsumer {
+export class Observer {
   subscriptions = {};
 
-  constructor() {
-    super(['entityUtilsService']);
-  }
+  constructor() {}
 
   subscribe(subscription) {
-    const subId = _entityUtilsService.getRandomId();
+    const subId = (Math.random() + 1).toString(36).substring(7);
 
     this.subscriptions[subId] = subscription;
 
