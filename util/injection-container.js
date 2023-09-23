@@ -1,5 +1,5 @@
 import ActionsFabricService from '../services/actions-fabric.service.js';
-import EntityUtilsService from '../services/entity-utils.service.js';
+import EntityUtilsService from '../services/entitiy-utils.service.js';
 import FormUtilsService from '../services/form-utils.service.js';
 import HttpClientService from '../services/http-client.service.js';
 import RestService from '../services/rest.service.js';

@@ -1,4 +1,4 @@
-import InjectionConsumer from '../abstract-classes/injection-consumer-abstract.js';
+import { InjectionConsumer } from '../abstract-classes/injection-consumer-abstract.js';
 
 export default class RestService extends InjectionConsumer {
   _baseUrl = 'https://650dd202a8b42265ec2cbac6.mockapi.io/Users';

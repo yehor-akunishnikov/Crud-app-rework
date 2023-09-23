@@ -1,6 +1,6 @@
 import { Observer } from '../util/observer.js';
 
-import InjectionConsumer from './injection-consumer-abstract';
+import InjectionConsumer from './injection-consumer-abstract.js';
 
 export class ControllerAbstract extends InjectionConsumer {
   _subscriptions = {};
